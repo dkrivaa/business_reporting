@@ -21,21 +21,21 @@ def reported_expenses(date: str = None):
     st.write('Not the expected amount of bills', lacking_bills)
 
 
-# @st.fragment
+@st.fragment
 def income_data(date: str = None):
     """ This function creates the download button for income pdf """
     income_buffer = make_income_pdf(date)
     download_pdf(income_buffer, 'income')
 
 
-# @st.fragment
+@st.fragment
 def expense_data(date: str = None):
     """ This function creates the download button for expense pdf """
     expense_buffer = make_expense_pdf(date)
     download_pdf(expense_buffer, 'expense')
 
 
-# @st.fragment
+@st.fragment
 def non_doc_expenses(date: str = None):
     """ This function creates the dataframe for expenses without docs """
     st.dataframe(make_non_docs_expense_dict(date))

@@ -21,6 +21,7 @@ def reported_expenses(date: str = None):
     st.write('Not the expected amount of bills', lacking_bills)
 
 
+@st.fragment
 def data(date: str = None):
     """ This function creates the download buttons and expenses without docs """
     income_buffer = make_income_pdf(date)

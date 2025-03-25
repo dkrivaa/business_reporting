@@ -22,14 +22,22 @@ def reported_expenses(date: str = None):
 
 
 @st.fragment
-def data(date: str = None):
-    """ This function creates the download buttons and expenses without docs """
+def income_data(date: str = None):
+    """ This function creates the download button for income pdf """
     income_buffer = make_income_pdf(date)
     download_pdf(income_buffer, 'income')
 
+
+@st.fragment
+def expense_data(date: str = None):
+    """ This function creates the download button for expense pdf """
     expense_buffer = make_expense_pdf(date)
     download_pdf(expense_buffer, 'expense')
 
+
+@st.fragment
+def non_doc_expenses(date: str = None):
+    """ This function creates the dataframe for expenses without docs """
     st.dataframe(make_non_docs_expense_dict(date))
 
 
@@ -45,7 +53,9 @@ def main():
         st.write(f'Report for period {start} - {end}')
         reported_expenses(date_string)
         st.divider()
-        data(date_string)
+        income_data(date_string)
+        expense_data(date_string)
+        non_doc_expenses(date_string)
 
 
 main()

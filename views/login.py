@@ -12,5 +12,5 @@ def main():
         st.switch_page('views/home.py')
 
 
-
-main()
+if __name__ == '__main__':
+    main()

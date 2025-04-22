@@ -10,6 +10,8 @@ def main():
     code = st.text_input('Enter code', type='password')
     if code == os.getenv('CODE'):
         st.switch_page('views/home.py')
+    else:
+        st.write('Incorrect Code')
 
 
 if __name__ == '__main__':

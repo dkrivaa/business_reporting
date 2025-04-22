@@ -58,5 +58,4 @@ def main():
         non_doc_expenses(date_string)
 
 
-if __name__ == '__main__':
-    main()
+main()

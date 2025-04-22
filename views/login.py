@@ -15,5 +15,4 @@ def main():
             st.write('Incorrect Code')
 
 
-if __name__ == '__main__':
-    main()
+main()

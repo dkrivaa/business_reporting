@@ -1,17 +1,35 @@
 import streamlit as st
 from datetime import datetime
+import io
+import zipfile
 from general_functions import report_period
 from morning_api import (make_expense_pdf, make_income_pdf, make_non_docs_expense_dict,
                          check_number_of_expenses, check_number_of_expenses)
 
 
-def download_pdf(buffer, pdf_name):
+def make_zip_from_pdf(pdf_buffer, pdf_name):
+    """ This function makes zip for download """
+    pdf_bytes = pdf_buffer.getvalue()
+
+    # Create a ZIP file in memory
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr(f"{pdf_name}.pdf", pdf_bytes)
+
+    # Move to beginning so Streamlit reads it correctly
+    zip_buffer.seek(0)
+
+    return zip_buffer
+
+
+
+def download_zip(buffer, zip_name):
     """ This function makes streamlit download button """
     st.download_button(
-        label=f"📄 Download {pdf_name} PDF",
+        label=f"📄 Download {zip_name} zip",
         data=buffer,
-        file_name=f"{pdf_name}.pdf",
-        mime="application/pdf"
+        file_name=f"{zip_name}.pdf",
+        mime="application/zip"
     )
 
 
@@ -23,16 +41,18 @@ def reported_expenses(date: str = None):
 
 @st.fragment
 def income_data(date: str = None):
-    """ This function creates the download button for income pdf """
+    """ This function creates the download button for income file """
     income_buffer = make_income_pdf(date)
-    download_pdf(income_buffer, 'income')
+    zip_buffer = make_zip_from_pdf(income_buffer, 'income')
+    download_zip(zip_buffer, 'income')
 
 
 @st.fragment
 def expense_data(date: str = None):
     """ This function creates the download button for expense pdf """
     expense_buffer = make_expense_pdf(date)
-    download_pdf(expense_buffer, 'expense')
+    zip_buffer = make_zip_from_pdf(expense_buffer, 'income')
+    download_zip(zip_buffer, 'expense')
 
 
 @st.fragment

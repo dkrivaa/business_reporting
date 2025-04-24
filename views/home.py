@@ -6,22 +6,6 @@ from morning_api import (make_expense_pdf, make_income_pdf, make_non_docs_expens
                          check_number_of_expenses, check_number_of_expenses)
 
 
-def make_zip_from_pdf(pdf_buffer, pdf_name):
-    """ This function makes zip for download """
-    pdf_bytes = pdf_buffer.getvalue()
-
-    # Create a ZIP file in memory
-    zip_buffer = io.BytesIO()
-    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
-        zf.writestr(f"{pdf_name}.pdf", pdf_bytes)
-
-    # Move to beginning so Streamlit reads it correctly
-    zip_buffer.seek(0)
-
-    return zip_buffer
-
-
-
 def download_pdf(buffer, pdf_name):
     """ This function makes streamlit download button """
     st.download_button(

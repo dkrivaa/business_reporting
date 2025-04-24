@@ -28,7 +28,7 @@ def download_zip(buffer, zip_name):
     st.download_button(
         label=f"📄 Download {zip_name} zip",
         data=buffer,
-        file_name=f"{zip_name}.pdf",
+        file_name=f"{zip_name}.zip",
         mime="application/zip"
     )
 

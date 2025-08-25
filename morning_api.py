@@ -242,7 +242,10 @@ def make_income_pdf(date: str = None):
     data = organize(data)
 
     # Return pdf buffer from income data
-    return make_pdf_buffer(data)
+    if data:
+        return make_pdf_buffer(data)
+    else:
+        return None
 
 
 def make_pdf_buffer(data):

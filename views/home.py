@@ -8,12 +8,15 @@ from morning_api import (make_expense_pdf, make_income_pdf, make_non_docs_expens
 
 def download_pdf(buffer, pdf_name):
     """ This function makes streamlit download button """
-    st.download_button(
-        label=f"📄 Download {pdf_name} PDF",
-        data=buffer,
-        file_name=f"{pdf_name}.pdf",
-        mime="application/pdf"
-    )
+    if buffer:
+        st.download_button(
+            label=f"📄 Download {pdf_name} PDF",
+            data=buffer,
+            file_name=f"{pdf_name}.pdf",
+            mime="application/pdf"
+        )
+    else:
+        st.write(f'No {pdf_name}')
 
 
 def reported_expenses(date: str = None):
